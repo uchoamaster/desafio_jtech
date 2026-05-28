@@ -1,45 +1,54 @@
-# jtech-tasklist
+# JTech Tasklist Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+SPA em Vue 3 para autenticacao, gerenciamento de listas e acompanhamento de tarefas.
 
-## Recommended IDE Setup
+## Stack
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Vue 3 + TypeScript
+- Pinia
+- Vue Router
+- Vuetify
+- Vitest + Vue Test Utils
+- Vite
 
-## Type Support for `.vue` Imports in TS
+## Funcionalidades entregues
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Tela de login com persistencia de sessao
+- Dashboard com listas e tarefas
+- Persistencia local por usuario com `localStorage`
+- Integracao com a API Spring Boot
+- Fallback para sessao simulada quando a API estiver indisponivel
+- Testes de store, rotas e views principais
 
-## Customize configuration
+## Como executar
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```powershell
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Aplicacao padrao em `http://localhost:5173`.
 
-```sh
+## Integracao com backend
+
+Por padrao o frontend tenta autenticar e sincronizar com a API.
+
+Quando a API nao responde, o login cai automaticamente para uma sessao simulada e o board continua funcionando localmente com persistencia por usuario no navegador.
+
+## Scripts
+
+```powershell
+npm run dev
 npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
+npm run test:unit -- --run
 npm run lint
 ```
+
+## Testes cobertos
+
+- fluxo de login com sucesso e erro
+- fallback para sessao simulada
+- persistencia de sessao restaurada
+- guards de rota
+- CRUD local do board em modo simulado
+- interacoes principais do dashboard

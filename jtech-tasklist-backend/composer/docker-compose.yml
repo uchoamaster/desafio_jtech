@@ -1,4 +1,26 @@
-version: '3.0'
 services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: jtech-tasklist-postgres
+    environment:
+      POSTGRES_DB: sansys_database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d sansys_database']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dev-services
+
+volumes:
+  postgres_data:
+
 networks:
   dev-services:
+    driver: bridge

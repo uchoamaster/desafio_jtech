@@ -1,53 +1,38 @@
-/* color palette from <https://github.com/vuejs/theme> */
-:root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+:root,
+:root[data-theme='dark'] {
+  --page-ink: #f2eee7;
+  --page-muted: #b9c2c0;
+  --page-border: rgba(255, 255, 255, 0.08);
+  --page-bg: #0d1518;
+  --page-bg-accent: #1d3136;
+  --page-bg-soft: rgba(19, 29, 33, 0.78);
+  --page-panel: rgba(18, 27, 31, 0.76);
+  --page-panel-strong: rgba(28, 43, 48, 0.94);
+  --page-highlight: #f2bd62;
+  --page-highlight-soft: rgba(242, 189, 98, 0.16);
+  --page-secondary-soft: rgba(116, 213, 192, 0.16);
+  --page-shadow: 0 24px 60px rgba(5, 9, 12, 0.32);
+  --page-shadow-soft: 0 12px 28px rgba(5, 9, 12, 0.2);
+  --page-topbar: rgba(10, 16, 19, 0.7);
 }
 
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
+:root[data-theme='light'] {
+  --page-ink: #293235;
+  --page-muted: #627173;
+  --page-border: rgba(54, 70, 73, 0.12);
+  --page-bg: #f4efe7;
+  --page-bg-accent: #dfe8e5;
+  --page-bg-soft: rgba(255, 251, 245, 0.85);
+  --page-panel: rgba(255, 253, 249, 0.88);
+  --page-panel-strong: rgba(237, 230, 219, 0.96);
+  --page-highlight: #a8602f;
+  --page-highlight-soft: rgba(168, 96, 47, 0.12);
+  --page-secondary-soft: rgba(45, 127, 114, 0.12);
+  --page-shadow: 0 22px 50px rgba(109, 95, 77, 0.16);
+  --page-shadow-soft: 0 10px 24px rgba(109, 95, 77, 0.1);
+  --page-topbar: rgba(244, 239, 231, 0.74);
 }
 
 *,
@@ -55,32 +40,45 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  font-weight: normal;
+}
+
+html {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-  font-size: 15px;
+  color: var(--page-ink);
+  background:
+    radial-gradient(circle at top, var(--page-highlight-soft), transparent 30%),
+    radial-gradient(circle at right, var(--page-secondary-soft), transparent 24%),
+    linear-gradient(160deg, var(--page-bg) 0%, var(--page-bg-accent) 100%);
+  font-family: 'Space Grotesk', 'Segoe UI Variable Text', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition:
+    background 0.35s ease,
+    color 0.35s ease;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--page-highlight) 28%, transparent);
+}
+
+a {
+  color: inherit;
 }

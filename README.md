@@ -22,9 +22,9 @@ A **JTech** busca desenvolvedores frontend experientes capazes de construir apli
 
 1. **Múltiplas Listas de Tarefas**: Usuário pode criar listas categorizadas (ex: "Trabalho", "Estudos", "Pessoal")
 2. **CRUD Completo de Listas**:
-   * Criar novas listas com nomes personalizados
-   * Renomear listas existentes com validação
-   * Excluir listas com confirmação e verificação de dependências
+  * Criar novas listas com nomes personalizados
+  * Renomear listas existentes com validação
+  * Excluir listas com confirmação e verificação de dependências
 3. **Navegação entre Listas**: Interface intuitiva para alternar entre diferentes listas
 
 #### Sistema Completo de Tarefas
@@ -58,21 +58,21 @@ A **JTech** busca desenvolvedores frontend experientes capazes de construir apli
 #### Sistema de Autenticação Segura
 
 1. **Registro de Usuários**:
-   * Endpoint `POST /auth/register` para cadastro com nome, email e senha
-   * Implementação de hash seguro de senhas utilizando bcrypt
-   * Validação de unicidade de email
+  * Endpoint `POST /auth/register` para cadastro com nome, email e senha
+  * Implementação de hash seguro de senhas utilizando bcrypt
+  * Validação de unicidade de email
 2. **Autenticação JWT**:
-   * Endpoint `POST /auth/login` para autenticação e geração de token JWT
-   * Implementação de refresh token para segurança aprimorada
+  * Endpoint `POST /auth/login` para autenticação e geração de token JWT
+  * Implementação de refresh token para segurança aprimorada
 
 #### Gerenciamento de Tarefas com Segurança
 
 1. **CRUD Completo de Tarefas**:
-   * `POST /tasks`: Criar tarefa associada ao usuário autenticado
-   * `GET /tasks`: Listar exclusivamente tarefas do usuário logado
-   * `GET /tasks/{id}`: Buscar tarefa específica com validação de propriedade
-   * `PUT /tasks/{id}`: Atualizar tarefa com controle de acesso
-   * `DELETE /tasks/{id}`: Remover tarefa com validação de proprietário
+  * `POST /tasks`: Criar tarefa associada ao usuário autenticado
+  * `GET /tasks`: Listar exclusivamente tarefas do usuário logado
+  * `GET /tasks/{id}`: Buscar tarefa específica com validação de propriedade
+  * `PUT /tasks/{id}`: Atualizar tarefa com controle de acesso
+  * `DELETE /tasks/{id}`: Remover tarefa com validação de proprietário
 2. **Autorização Robusta**: Todas as rotas protegidas por JWT com validação de propriedade dos recursos
 
 ### Requisitos Não Funcionais

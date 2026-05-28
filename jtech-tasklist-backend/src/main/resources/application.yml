@@ -45,3 +45,8 @@ api:
   url:
     homologation: http://${HOMOLOGATION_SERVER:172.30.1.24}:${HOMOLOGATION_PORT:8081}
     production: ${PRODUCTION_URI:http://${spring.application.name}.jtech.com.br}
+app:
+  security:
+    jwt-secret: ${JWT_SECRET:tasklist-local-secret-key-with-at-least-thirty-two-characters}
+    jwt-expiration-seconds: ${JWT_EXPIRATION_SECONDS:86400}
+    jwt-refresh-expiration-seconds: ${JWT_REFRESH_EXPIRATION_SECONDS:604800}

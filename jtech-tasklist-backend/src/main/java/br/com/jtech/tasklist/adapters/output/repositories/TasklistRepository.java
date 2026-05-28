@@ -17,6 +17,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.jtech.tasklist.adapters.output.repositories.entities.TasklistEntity;
 
 import java.util.UUID;
+import java.util.List;
+import java.util.Optional;
 
 /**
 * class TasklistRepository 
@@ -25,5 +27,11 @@ import java.util.UUID;
 */
 @Repository
 public interface TasklistRepository extends JpaRepository<TasklistEntity, UUID> {
-    
+	List<TasklistEntity> findAllByOwnerIdOrderByCreatedAtAsc(UUID ownerId);
+
+	Optional<TasklistEntity> findByIdAndOwnerId(UUID id, UUID ownerId);
+
+	boolean existsByOwnerIdAndNameIgnoreCase(UUID ownerId, String name);
+
+	boolean existsByOwnerIdAndNameIgnoreCaseAndIdNot(UUID ownerId, String name, UUID id);
 }

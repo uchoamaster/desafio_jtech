@@ -12,7 +12,7 @@
 */
 package br.com.jtech.tasklist.adapters.input.protocols;
 
-import br.com.jtech.tasklist.application.core.domains.Tasklist;
+import br.com.jtech.tasklist.adapters.output.repositories.entities.TaskItemEntity;
 import br.com.jtech.tasklist.adapters.output.repositories.entities.TasklistEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,7 +20,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -38,24 +37,39 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TasklistResponse implements Serializable {
     private String id;
-    List<TasklistResponse> responses;
+    private String name;
+    private List<TaskItemResponse> tasks;
 
-    public static TasklistResponse of(Tasklist tasklist) {
+    public static TasklistResponse of(TasklistEntity entity) {
         return TasklistResponse.builder()
-                .id(tasklist.getId())
+                .id(entity.getId().toString())
+                .name(entity.getName())
+                .tasks(entity.getTasks().stream().map(TaskItemResponse::of).toList())
                 .build();
     }
 
     public static TasklistResponse of(List<TasklistEntity> entities) {
-        var list = entities.stream().map(TasklistResponse::of).toList();
-        return TasklistResponse.builder()
-                .responses(list)
-                .build();
+        throw new UnsupportedOperationException("Use stream mapping for list responses");
     }
 
-    public static TasklistResponse of(TasklistEntity entity) {
-        var response = new TasklistResponse();
-        BeanUtils.copyProperties(entity, response);
-        return response;
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class TaskItemResponse implements Serializable {
+        private String id;
+        private String title;
+        private String notes;
+        private boolean completed;
+
+        public static TaskItemResponse of(TaskItemEntity entity) {
+            return TaskItemResponse.builder()
+                    .id(entity.getId().toString())
+                    .title(entity.getTitle())
+                    .notes(entity.getNotes())
+                    .completed(entity.isCompleted())
+                    .build();
+        }
     }
 }
