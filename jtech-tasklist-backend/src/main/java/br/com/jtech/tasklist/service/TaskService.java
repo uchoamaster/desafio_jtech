@@ -25,8 +25,8 @@ public class TaskService {
     private final TasklistRepository tasklistRepository;
 
     public TaskResponse createTask(UserEntity currentUser, TaskCreateRequest request) {
-        var tasklist = getOwnedTasklist(currentUser, request.getTasklistId());
-        var normalizedTitle = request.getTitle().trim();
+        var tasklist = getOwnedTasklist(currentUser, request.tasklistId());
+        var normalizedTitle = request.title().trim();
 
         if (taskRepository.existsByTasklistIdAndTitleIgnoreCase(tasklist.getId(), normalizedTitle)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A task with this title already exists in the list.");
@@ -34,7 +34,7 @@ public class TaskService {
 
         var task = taskRepository.save(TaskItemEntity.builder()
                 .title(normalizedTitle)
-                .notes(request.getNotes() == null ? "" : request.getNotes().trim())
+                .notes(request.notes() == null ? "" : request.notes().trim())
                 .completed(false)
                 .tasklist(tasklist)
             .owner(currentUser)
@@ -56,21 +56,21 @@ public class TaskService {
 
     public TaskResponse updateTask(UserEntity currentUser, String taskId, TaskRequest request) {
         var task = getOwnedTask(currentUser, taskId);
-        var normalizedTitle = request.getTitle().trim();
+        var normalizedTitle = request.title().trim();
 
         if (taskRepository.existsByTasklistIdAndTitleIgnoreCaseAndIdNot(task.getTasklist().getId(), normalizedTitle, task.getId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A task with this title already exists in the list.");
         }
 
         task.setTitle(normalizedTitle);
-        task.setNotes(request.getNotes() == null ? "" : request.getNotes().trim());
+        task.setNotes(request.notes() == null ? "" : request.notes().trim());
 
         return TaskResponse.of(taskRepository.save(task));
     }
 
     public TaskResponse updateStatus(UserEntity currentUser, String taskId, TaskStatusRequest request) {
         var task = getOwnedTask(currentUser, taskId);
-        task.setCompleted(request.isCompleted());
+        task.setCompleted(request.completed());
         return TaskResponse.of(taskRepository.save(task));
     }
 

@@ -42,3 +42,91 @@ This generated password is for development use only. Your security configuration
 2026-05-29T09:18:21.927-03:00  INFO 16180 --- [tasklist] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-05-29T09:18:21.929-03:00  INFO 16180 --- [tasklist] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2026-05-29T09:18:21.931-03:00  INFO 16180 --- [tasklist] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-05-29T09:23:08.614-03:00  INFO 2472 --- [tasklist] [Test worker] b.c.j.t.i.TasklistApiIntegrationTest     : Starting TasklistApiIntegrationTest v1.0.0-SNAPSHOT using Java 21.0.11 with PID 2472 (started by T-GAMER in C:\Users\T-GAMER\OneDrive\Área de Trabalho\TESTE_JAVA\fullstack2\jtech-tasklist-backend)
+2026-05-29T09:23:08.614-03:00 DEBUG 2472 --- [tasklist] [Test worker] b.c.j.t.i.TasklistApiIntegrationTest     : Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-05-29T09:23:08.614-03:00  INFO 2472 --- [tasklist] [Test worker] b.c.j.t.i.TasklistApiIntegrationTest     : The following 1 profile is active: "test"
+2026-05-29T09:23:09.534-03:00  INFO 2472 --- [tasklist] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-29T09:23:09.593-03:00  INFO 2472 --- [tasklist] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 3 JPA repository interfaces.
+2026-05-29T09:23:09.995-03:00  INFO 2472 --- [tasklist] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-29T09:23:10.045-03:00  INFO 2472 --- [tasklist] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-05-29T09:23:10.077-03:00  INFO 2472 --- [tasklist] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-29T09:23:10.384-03:00  INFO 2472 --- [tasklist] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-29T09:23:10.435-03:00  INFO 2472 --- [tasklist] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-29T09:23:10.682-03:00  INFO 2472 --- [tasklist] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-05-29T09:23:10.682-03:00  INFO 2472 --- [tasklist] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-29T09:23:10.720-03:00  WARN 2472 --- [tasklist] [Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-29T09:23:10.735-03:00  INFO 2472 --- [tasklist] [Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-29T09:23:11.611-03:00  INFO 2472 --- [tasklist] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-29T09:23:11.660-03:00  INFO 2472 --- [tasklist] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-29T09:23:12.078-03:00  WARN 2472 --- [tasklist] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-29T09:23:12.378-03:00  INFO 2472 --- [tasklist] [Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
+2026-05-29T09:23:12.403-03:00  WARN 2472 --- [tasklist] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 25e6ed8b-39c2-4c8d-b205-78ecb344de91
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-05-29T09:23:12.411-03:00  INFO 2472 --- [tasklist] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-05-29T09:23:12.789-03:00 DEBUG 2472 --- [tasklist] [Test worker] b.c.j.t.c.i.s.JwtAuthenticationFilter    : Filter 'jwtAuthenticationFilter' configured for use
+2026-05-29T09:23:12.789-03:00  INFO 2472 --- [tasklist] [Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-05-29T09:23:12.789-03:00  INFO 2472 --- [tasklist] [Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-05-29T09:23:12.789-03:00  INFO 2472 --- [tasklist] [Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-05-29T09:23:12.842-03:00  INFO 2472 --- [tasklist] [Test worker] b.c.j.t.i.TasklistApiIntegrationTest     : Started TasklistApiIntegrationTest in 4.617 seconds (process running for 5.799)
+2026-05-29T09:23:12.878-03:00  INFO 2472 --- [tasklist] [Test worker] b.c.j.t.c.i.l.ReadyEventListener         : >>> Connector Ready
+2026-05-29T09:23:12.878-03:00  INFO 2472 --- [tasklist] [Test worker] b.c.j.t.c.i.l.ReadyEventListener         : ======================================================
+2026-05-29T09:23:12.878-03:00  INFO 2472 --- [tasklist] [Test worker] b.c.j.t.c.i.l.ReadyEventListener         : == Execute mode:.....................'LOCAL'
+2026-05-29T09:23:12.878-03:00  INFO 2472 --- [tasklist] [Test worker] b.c.j.t.c.i.l.ReadyEventListener         : ======================================================
+2026-05-29T09:23:14.819-03:00  INFO 2472 --- [tasklist] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-29T09:23:14.827-03:00  INFO 2472 --- [tasklist] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-29T09:23:14.834-03:00  INFO 2472 --- [tasklist] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-05-29T09:28:01.055-03:00  INFO 20364 --- [tasklist] [Test worker] b.c.j.t.i.TasklistApiIntegrationTest     : Starting TasklistApiIntegrationTest v1.0.0-SNAPSHOT using Java 21.0.11 with PID 20364 (started by T-GAMER in C:\Users\T-GAMER\OneDrive\Área de Trabalho\TESTE_JAVA\fullstack2\jtech-tasklist-backend)
+2026-05-29T09:28:01.055-03:00 DEBUG 20364 --- [tasklist] [Test worker] b.c.j.t.i.TasklistApiIntegrationTest     : Running with Spring Boot v3.5.5, Spring v6.2.10
+2026-05-29T09:28:01.055-03:00  INFO 20364 --- [tasklist] [Test worker] b.c.j.t.i.TasklistApiIntegrationTest     : The following 1 profile is active: "test"
+2026-05-29T09:28:02.029-03:00  INFO 20364 --- [tasklist] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-29T09:28:02.080-03:00  INFO 20364 --- [tasklist] [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 3 JPA repository interfaces.
+2026-05-29T09:28:02.501-03:00  INFO 20364 --- [tasklist] [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-29T09:28:02.546-03:00  INFO 20364 --- [tasklist] [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-05-29T09:28:02.579-03:00  INFO 20364 --- [tasklist] [Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-29T09:28:02.846-03:00  INFO 20364 --- [tasklist] [Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-29T09:28:02.886-03:00  INFO 20364 --- [tasklist] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-29T09:28:03.130-03:00  INFO 20364 --- [tasklist] [Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-05-29T09:28:03.132-03:00  INFO 20364 --- [tasklist] [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-29T09:28:03.156-03:00  WARN 20364 --- [tasklist] [Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-29T09:28:03.164-03:00  INFO 20364 --- [tasklist] [Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-29T09:28:04.037-03:00  INFO 20364 --- [tasklist] [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-29T09:28:04.087-03:00  INFO 20364 --- [tasklist] [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-29T09:28:04.550-03:00  WARN 20364 --- [tasklist] [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-29T09:28:05.000-03:00  INFO 20364 --- [tasklist] [Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoints beneath base path '/actuator'
+2026-05-29T09:28:05.032-03:00  WARN 20364 --- [tasklist] [Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 4ca076db-523b-4569-ae6d-8096e23fd007
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-05-29T09:28:05.042-03:00  INFO 20364 --- [tasklist] [Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-05-29T09:28:05.468-03:00 DEBUG 20364 --- [tasklist] [Test worker] b.c.j.t.c.i.s.JwtAuthenticationFilter    : Filter 'jwtAuthenticationFilter' configured for use
+2026-05-29T09:28:05.469-03:00  INFO 20364 --- [tasklist] [Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-05-29T09:28:05.469-03:00  INFO 20364 --- [tasklist] [Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-05-29T09:28:05.470-03:00  INFO 20364 --- [tasklist] [Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-05-29T09:28:05.531-03:00  INFO 20364 --- [tasklist] [Test worker] b.c.j.t.i.TasklistApiIntegrationTest     : Started TasklistApiIntegrationTest in 4.865 seconds (process running for 6.1)
+2026-05-29T09:28:05.585-03:00  INFO 20364 --- [tasklist] [Test worker] b.c.j.t.c.i.l.ReadyEventListener         : >>> Connector Ready
+2026-05-29T09:28:05.585-03:00  INFO 20364 --- [tasklist] [Test worker] b.c.j.t.c.i.l.ReadyEventListener         : ======================================================
+2026-05-29T09:28:05.585-03:00  INFO 20364 --- [tasklist] [Test worker] b.c.j.t.c.i.l.ReadyEventListener         : == Execute mode:.....................'LOCAL'
+2026-05-29T09:28:05.585-03:00  INFO 20364 --- [tasklist] [Test worker] b.c.j.t.c.i.l.ReadyEventListener         : ======================================================
+2026-05-29T09:28:07.763-03:00  INFO 20364 --- [tasklist] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-29T09:28:07.766-03:00  INFO 20364 --- [tasklist] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-29T09:28:07.766-03:00  INFO 20364 --- [tasklist] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -21,27 +21,27 @@ public class AuthService {
     private final JwtService jwtService;
 
     public AuthResponse register(AuthRegisterRequest request) {
-        var normalizedEmail = request.getEmail().trim().toLowerCase();
+        var normalizedEmail = request.email().trim().toLowerCase();
 
         if (userRepository.existsByEmailIgnoreCase(normalizedEmail)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already registered.");
         }
 
         var user = userRepository.save(UserEntity.builder()
-                .name(request.getName().trim())
+            .name(request.name().trim())
                 .email(normalizedEmail)
-                .passwordHash(passwordEncoder.encode(request.getPassword().trim()))
+            .passwordHash(passwordEncoder.encode(request.password().trim()))
                 .build());
 
         return createResponse(user);
     }
 
     public AuthResponse login(AuthLoginRequest request) {
-        var normalizedEmail = request.getEmail().trim().toLowerCase();
+        var normalizedEmail = request.email().trim().toLowerCase();
         var user = userRepository.findByEmailIgnoreCase(normalizedEmail)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials."));
 
-        if (!passwordEncoder.matches(request.getPassword().trim(), user.getPasswordHash())) {
+        if (!passwordEncoder.matches(request.password().trim(), user.getPasswordHash())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials.");
         }
 
@@ -49,7 +49,7 @@ public class AuthService {
     }
 
     public AuthResponse refresh(RefreshTokenRequest request) {
-        var token = request.getRefreshToken().trim();
+        var token = request.refreshToken().trim();
         var subject = jwtService.extractSubject(token);
 
         var user = userRepository.findByEmailIgnoreCase(subject)
@@ -63,11 +63,11 @@ public class AuthService {
     }
 
     private AuthResponse createResponse(UserEntity user) {
-        return AuthResponse.builder()
-                .token(jwtService.generateToken(user.getEmail()))
-                .refreshToken(jwtService.generateRefreshToken(user.getEmail()))
-                .displayName(user.getName())
-                .email(user.getEmail())
-                .build();
+        return new AuthResponse(
+            jwtService.generateToken(user.getEmail()),
+            jwtService.generateRefreshToken(user.getEmail()),
+            user.getName(),
+            user.getEmail()
+        );
     }
 }

@@ -37,7 +37,7 @@ class TasklistServiceTest {
     @Test
     void createListShouldPersistListForCurrentUser() {
         var currentUser = user();
-        var request = TasklistRequest.builder().name(" Trabalho ").build();
+        var request = new TasklistRequest(" Trabalho ");
 
         when(tasklistRepository.existsByOwnerIdAndNameIgnoreCase(currentUser.getId(), "Trabalho")).thenReturn(false);
         when(tasklistRepository.save(any(TasklistEntity.class))).thenAnswer(invocation -> {
@@ -54,7 +54,7 @@ class TasklistServiceTest {
 
         assertThat(savedList.getValue().getName()).isEqualTo("Trabalho");
         assertThat(savedList.getValue().getOwner()).isEqualTo(currentUser);
-        assertThat(response.getName()).isEqualTo("Trabalho");
+        assertThat(response.name()).isEqualTo("Trabalho");
     }
 
     @Test
@@ -89,10 +89,7 @@ class TasklistServiceTest {
 
         when(tasklistRepository.findByIdAndOwnerId(list.getId(), currentUser.getId())).thenReturn(Optional.of(list));
 
-        assertThatThrownBy(() -> tasklistService.createTask(currentUser, list.getId().toString(), TaskRequest.builder()
-                .title("revisar pr")
-                .notes("Duplicada")
-                .build()))
+        assertThatThrownBy(() -> tasklistService.createTask(currentUser, list.getId().toString(), new TaskRequest("revisar pr", "Duplicada")))
                 .isInstanceOf(ResponseStatusException.class)
                 .extracting(ex -> ((ResponseStatusException) ex).getStatusCode())
                 .isEqualTo(HttpStatus.CONFLICT);

@@ -30,7 +30,7 @@ public class TasklistService {
     }
 
     public TasklistResponse createList(UserEntity currentUser, TasklistRequest request) {
-        var normalizedName = request.getName().trim();
+        var normalizedName = request.name().trim();
 
         if (tasklistRepository.existsByOwnerIdAndNameIgnoreCase(currentUser.getId(), normalizedName)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A list with this name already exists.");
@@ -46,7 +46,7 @@ public class TasklistService {
 
     public TasklistResponse updateList(UserEntity currentUser, String listId, TasklistRequest request) {
         var entity = getOwnedList(currentUser, listId);
-        var normalizedName = request.getName().trim();
+        var normalizedName = request.name().trim();
 
         if (tasklistRepository.existsByOwnerIdAndNameIgnoreCaseAndIdNot(currentUser.getId(), normalizedName, entity.getId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Choose another name for the list.");
@@ -68,13 +68,13 @@ public class TasklistService {
 
     public TasklistResponse createTask(UserEntity currentUser, String listId, TaskRequest request) {
         var entity = getOwnedList(currentUser, listId);
-        var normalizedTitle = request.getTitle().trim();
+        var normalizedTitle = request.title().trim();
 
         ensureTaskTitleAvailable(entity, normalizedTitle, null);
 
         entity.addTask(TaskItemEntity.builder()
                 .title(normalizedTitle)
-                .notes(request.getNotes() == null ? "" : request.getNotes().trim())
+            .notes(request.notes() == null ? "" : request.notes().trim())
                 .completed(false)
                 .build());
 
@@ -84,12 +84,12 @@ public class TasklistService {
     public TasklistResponse updateTask(UserEntity currentUser, String listId, String taskId, TaskRequest request) {
         var entity = getOwnedList(currentUser, listId);
         var task = getOwnedTask(entity, taskId);
-        var normalizedTitle = request.getTitle().trim();
+        var normalizedTitle = request.title().trim();
 
         ensureTaskTitleAvailable(entity, normalizedTitle, task.getId());
 
         task.setTitle(normalizedTitle);
-        task.setNotes(request.getNotes() == null ? "" : request.getNotes().trim());
+        task.setNotes(request.notes() == null ? "" : request.notes().trim());
 
         return TasklistResponse.of(tasklistRepository.save(entity));
     }
@@ -98,7 +98,7 @@ public class TasklistService {
         var entity = getOwnedList(currentUser, listId);
         var task = getOwnedTask(entity, taskId);
 
-        task.setCompleted(request.isCompleted());
+        task.setCompleted(request.completed());
         return TasklistResponse.of(tasklistRepository.save(entity));
     }
 

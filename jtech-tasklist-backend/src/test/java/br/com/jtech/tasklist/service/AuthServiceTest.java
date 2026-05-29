@@ -41,11 +41,7 @@ class AuthServiceTest {
 
     @Test
     void registerShouldHashPasswordAndReturnAccessAndRefreshTokens() {
-        var request = AuthRegisterRequest.builder()
-                .name(" Angelo ")
-                .email(" Angelo@Tasklist.Local ")
-                .password("123456")
-                .build();
+                var request = new AuthRegisterRequest(" Angelo ", " Angelo@Tasklist.Local ", "123456");
 
         when(userRepository.existsByEmailIgnoreCase("angelo@tasklist.local")).thenReturn(false);
         when(passwordEncoder.encode("123456")).thenReturn("hashed-password");
@@ -65,9 +61,9 @@ class AuthServiceTest {
         assertThat(savedUser.getValue().getName()).isEqualTo("Angelo");
         assertThat(savedUser.getValue().getEmail()).isEqualTo("angelo@tasklist.local");
         assertThat(savedUser.getValue().getPasswordHash()).isEqualTo("hashed-password");
-        assertThat(response.getToken()).isEqualTo("access-token");
-        assertThat(response.getRefreshToken()).isEqualTo("refresh-token");
-        assertThat(response.getEmail()).isEqualTo("angelo@tasklist.local");
+        assertThat(response.token()).isEqualTo("access-token");
+        assertThat(response.refreshToken()).isEqualTo("refresh-token");
+        assertThat(response.email()).isEqualTo("angelo@tasklist.local");
     }
 
     @Test
@@ -82,10 +78,7 @@ class AuthServiceTest {
         when(userRepository.findByEmailIgnoreCase("angelo@tasklist.local")).thenReturn(Optional.of(user));
         when(passwordEncoder.matches("wrong-password", "hashed-password")).thenReturn(false);
 
-        var request = AuthLoginRequest.builder()
-                .email("angelo@tasklist.local")
-                .password("wrong-password")
-                .build();
+        var request = new AuthLoginRequest("angelo@tasklist.local", "wrong-password");
 
         assertThatThrownBy(() -> authService.login(request))
                 .isInstanceOf(ResponseStatusException.class)
@@ -108,13 +101,11 @@ class AuthServiceTest {
         when(jwtService.generateToken("angelo@tasklist.local")).thenReturn("new-access-token");
         when(jwtService.generateRefreshToken("angelo@tasklist.local")).thenReturn("new-refresh-token");
 
-        var response = authService.refresh(RefreshTokenRequest.builder()
-                .refreshToken("refresh-token")
-                .build());
+        var response = authService.refresh(new RefreshTokenRequest("refresh-token"));
 
-        assertThat(response.getToken()).isEqualTo("new-access-token");
-        assertThat(response.getRefreshToken()).isEqualTo("new-refresh-token");
-        assertThat(response.getDisplayName()).isEqualTo("Angelo");
+        assertThat(response.token()).isEqualTo("new-access-token");
+        assertThat(response.refreshToken()).isEqualTo("new-refresh-token");
+        assertThat(response.displayName()).isEqualTo("Angelo");
     }
 
     @Test
@@ -130,9 +121,7 @@ class AuthServiceTest {
         when(userRepository.findByEmailIgnoreCase("angelo@tasklist.local")).thenReturn(Optional.of(user));
         when(jwtService.isRefreshTokenValid("refresh-token", "angelo@tasklist.local")).thenReturn(false);
 
-        assertThatThrownBy(() -> authService.refresh(RefreshTokenRequest.builder()
-                .refreshToken("refresh-token")
-                .build()))
+        assertThatThrownBy(() -> authService.refresh(new RefreshTokenRequest("refresh-token")))
                 .isInstanceOf(ResponseStatusException.class)
                 .extracting(ex -> ((ResponseStatusException) ex).getStatusCode())
                 .isEqualTo(HttpStatus.UNAUTHORIZED);

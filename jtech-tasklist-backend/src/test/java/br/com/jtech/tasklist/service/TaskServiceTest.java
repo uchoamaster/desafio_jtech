@@ -53,11 +53,10 @@ class TaskServiceTest {
             return entity;
         });
 
-        var response = taskService.createTask(currentUser, TaskCreateRequest.builder()
-                .tasklistId(tasklist.getId().toString())
-                .title(" Revisar PR ")
-                .notes("Cobrir regressao")
-                .build());
+        var response = taskService.createTask(
+            currentUser,
+            new TaskCreateRequest(tasklist.getId().toString(), " Revisar PR ", "Cobrir regressao")
+        );
 
         var savedTask = ArgumentCaptor.forClass(TaskItemEntity.class);
         verify(taskRepository).save(savedTask.capture());
@@ -65,7 +64,7 @@ class TaskServiceTest {
         assertThat(savedTask.getValue().getTasklist()).isEqualTo(tasklist);
         assertThat(savedTask.getValue().getOwner()).isEqualTo(currentUser);
         assertThat(savedTask.getValue().getTitle()).isEqualTo("Revisar PR");
-        assertThat(response.getTasklistId()).isEqualTo(tasklist.getId().toString());
+        assertThat(response.tasklistId()).isEqualTo(tasklist.getId().toString());
     }
 
     @Test
@@ -77,10 +76,7 @@ class TaskServiceTest {
         when(taskRepository.findByIdAndOwnerId(task.getId(), currentUser.getId())).thenReturn(Optional.of(task));
         when(taskRepository.existsByTasklistIdAndTitleIgnoreCaseAndIdNot(tasklist.getId(), "Duplicada", task.getId())).thenReturn(true);
 
-        assertThatThrownBy(() -> taskService.updateTask(currentUser, task.getId().toString(), TaskRequest.builder()
-                .title("Duplicada")
-                .notes("Outra")
-                .build()))
+        assertThatThrownBy(() -> taskService.updateTask(currentUser, task.getId().toString(), new TaskRequest("Duplicada", "Outra")))
                 .isInstanceOf(ResponseStatusException.class)
                 .extracting(ex -> ((ResponseStatusException) ex).getStatusCode())
                 .isEqualTo(HttpStatus.CONFLICT);
@@ -100,7 +96,7 @@ class TaskServiceTest {
         var response = taskService.findAll(currentUser);
 
         assertThat(response).hasSize(2);
-        assertThat(response.get(0).getTasklistName()).isEqualTo("Trabalho");
+        assertThat(response.get(0).tasklistName()).isEqualTo("Trabalho");
     }
 
     @Test
@@ -111,9 +107,9 @@ class TaskServiceTest {
         when(taskRepository.findByIdAndOwnerId(task.getId(), currentUser.getId())).thenReturn(Optional.of(task));
         when(taskRepository.save(any(TaskItemEntity.class))).thenAnswer(invocation -> invocation.getArgument(0, TaskItemEntity.class));
 
-        var response = taskService.updateStatus(currentUser, task.getId().toString(), TaskStatusRequest.builder().completed(true).build());
+        var response = taskService.updateStatus(currentUser, task.getId().toString(), new TaskStatusRequest(true));
 
-        assertThat(response.isCompleted()).isTrue();
+        assertThat(response.completed()).isTrue();
     }
 
     private UserEntity user() {
