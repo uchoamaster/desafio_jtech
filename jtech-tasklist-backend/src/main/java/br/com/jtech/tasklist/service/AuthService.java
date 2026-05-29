@@ -6,19 +6,23 @@ import br.com.jtech.tasklist.controller.dto.AuthResponse;
 import br.com.jtech.tasklist.controller.dto.RefreshTokenRequest;
 import br.com.jtech.tasklist.domain.UserEntity;
 import br.com.jtech.tasklist.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-@RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+    }
 
     public AuthResponse register(AuthRegisterRequest request) {
         var normalizedEmail = request.email().trim().toLowerCase();
@@ -27,11 +31,12 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already registered.");
         }
 
-        var user = userRepository.save(UserEntity.builder()
-            .name(request.name().trim())
-                .email(normalizedEmail)
-            .passwordHash(passwordEncoder.encode(request.password().trim()))
-                .build());
+        var user = new UserEntity();
+        user.setName(request.name().trim());
+        user.setEmail(normalizedEmail);
+        user.setPasswordHash(passwordEncoder.encode(request.password().trim()));
+
+        user = userRepository.save(user);
 
         return createResponse(user);
     }

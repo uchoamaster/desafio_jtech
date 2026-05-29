@@ -12,8 +12,6 @@
 */
 package br.com.jtech.tasklist.config.infra.utils;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.UUID;
 
 /**
@@ -21,8 +19,11 @@ import java.util.UUID;
 *
 * @author: angelo.vicente
 */
-@UtilityClass
-public class GenId {
+public final class GenId {
+
+    private GenId() {
+        throw new UnsupportedOperationException("Utility class");
+    }
 
     public static String newId() {
         return UUID.randomUUID().toString();

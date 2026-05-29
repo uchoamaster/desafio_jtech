@@ -25,9 +25,9 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.io.IOException;
@@ -41,14 +41,18 @@ import java.util.Objects;
 *
 * user angelo.vicente
 */
-@Slf4j
-@UtilityClass
-public class Jsons {
+public final class Jsons {
+
+    private static final Logger log = LoggerFactory.getLogger(Jsons.class);
 
     private static final ObjectMapper mapper;
 
     private static final String DEFAULT_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
+
+    private Jsons() {
+        throw new UnsupportedOperationException("Utility class");
+    }
 
     static {
         Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();

@@ -24,11 +24,6 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
@@ -41,11 +36,6 @@ import java.util.UUID;
 * 
 * @author angelo.vicente
 */
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "TasklistEntity")
 @Table(
         name = "tasklists",
@@ -64,7 +54,6 @@ public class TasklistEntity {
     @JoinColumn(name = "owner_id", nullable = false)
     private UserEntity owner;
 
-    @Builder.Default
     @OneToMany(mappedBy = "tasklist", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<TaskItemEntity> tasks = new ArrayList<>();
 
@@ -73,6 +62,19 @@ public class TasklistEntity {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    public TasklistEntity() {
+    }
+
+    public TasklistEntity(UUID id, String name, UserEntity owner, List<TaskItemEntity> tasks,
+                          LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.owner = owner;
+        this.tasks = tasks == null ? new ArrayList<>() : tasks;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     @PrePersist
     void prePersist() {
@@ -96,6 +98,54 @@ public class TasklistEntity {
         tasks.remove(task);
         task.setTasklist(null);
         task.setOwner(null);
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UserEntity getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserEntity owner) {
+        this.owner = owner;
+    }
+
+    public List<TaskItemEntity> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskItemEntity> tasks) {
+        this.tasks = tasks == null ? new ArrayList<>() : tasks;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 }

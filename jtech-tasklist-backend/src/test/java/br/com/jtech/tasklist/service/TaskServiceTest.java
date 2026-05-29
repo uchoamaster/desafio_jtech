@@ -113,31 +113,31 @@ class TaskServiceTest {
     }
 
     private UserEntity user() {
-        return UserEntity.builder()
-                .id(UUID.randomUUID())
-                .name("Angelo")
-                .email("angelo@tasklist.local")
-                .passwordHash("hashed-password")
-                .build();
+        var user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setName("Angelo");
+        user.setEmail("angelo@tasklist.local");
+        user.setPasswordHash("hashed-password");
+        return user;
     }
 
     private TasklistEntity tasklist(UserEntity currentUser) {
-        return TasklistEntity.builder()
-                .id(UUID.randomUUID())
-                .name("Trabalho")
-                .owner(currentUser)
-                .tasks(new ArrayList<>())
-                .build();
+        var tasklist = new TasklistEntity();
+        tasklist.setId(UUID.randomUUID());
+        tasklist.setName("Trabalho");
+        tasklist.setOwner(currentUser);
+        tasklist.setTasks(new ArrayList<>());
+        return tasklist;
     }
 
     private TaskItemEntity task(TasklistEntity tasklist) {
-        return TaskItemEntity.builder()
-                .id(UUID.randomUUID())
-                .title("Revisar PR")
-                .notes("Cobrir criterios")
-                .completed(false)
-                .tasklist(tasklist)
-                .owner(tasklist.getOwner())
-                .build();
+        var task = new TaskItemEntity();
+        task.setId(UUID.randomUUID());
+        task.setTitle("Revisar PR");
+        task.setNotes("Cobrir criterios");
+        task.setCompleted(false);
+        task.setTasklist(tasklist);
+        task.setOwner(tasklist.getOwner());
+        return task;
     }
 }

@@ -7,7 +7,6 @@ import br.com.jtech.tasklist.controller.dto.TasklistResponse;
 import br.com.jtech.tasklist.domain.UserEntity;
 import br.com.jtech.tasklist.service.TasklistService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,10 +24,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tasklists")
-@RequiredArgsConstructor
 public class TasklistController {
 
     private final TasklistService tasklistService;
+
+    public TasklistController(TasklistService tasklistService) {
+        this.tasklistService = tasklistService;
+    }
 
     @GetMapping
     public List<TasklistResponse> findAll(@AuthenticationPrincipal UserEntity currentUser) {

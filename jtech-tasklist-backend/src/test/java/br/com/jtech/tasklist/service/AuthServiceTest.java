@@ -68,12 +68,11 @@ class AuthServiceTest {
 
     @Test
     void loginShouldRejectInvalidPassword() {
-        var user = UserEntity.builder()
-                .id(UUID.randomUUID())
-                .name("Angelo")
-                .email("angelo@tasklist.local")
-                .passwordHash("hashed-password")
-                .build();
+        var user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setName("Angelo");
+        user.setEmail("angelo@tasklist.local");
+        user.setPasswordHash("hashed-password");
 
         when(userRepository.findByEmailIgnoreCase("angelo@tasklist.local")).thenReturn(Optional.of(user));
         when(passwordEncoder.matches("wrong-password", "hashed-password")).thenReturn(false);
@@ -88,12 +87,11 @@ class AuthServiceTest {
 
     @Test
     void refreshShouldReturnNewTokensWhenRefreshTokenIsValid() {
-        var user = UserEntity.builder()
-                .id(UUID.randomUUID())
-                .name("Angelo")
-                .email("angelo@tasklist.local")
-                .passwordHash("hashed-password")
-                .build();
+        var user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setName("Angelo");
+        user.setEmail("angelo@tasklist.local");
+        user.setPasswordHash("hashed-password");
 
         when(jwtService.extractSubject("refresh-token")).thenReturn("angelo@tasklist.local");
         when(userRepository.findByEmailIgnoreCase("angelo@tasklist.local")).thenReturn(Optional.of(user));
@@ -110,12 +108,11 @@ class AuthServiceTest {
 
     @Test
     void refreshShouldRejectInvalidRefreshToken() {
-        var user = UserEntity.builder()
-                .id(UUID.randomUUID())
-                .name("Angelo")
-                .email("angelo@tasklist.local")
-                .passwordHash("hashed-password")
-                .build();
+        var user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setName("Angelo");
+        user.setEmail("angelo@tasklist.local");
+        user.setPasswordHash("hashed-password");
 
         when(jwtService.extractSubject("refresh-token")).thenReturn("angelo@tasklist.local");
         when(userRepository.findByEmailIgnoreCase("angelo@tasklist.local")).thenReturn(Optional.of(user));

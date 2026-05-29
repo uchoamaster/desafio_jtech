@@ -60,13 +60,16 @@ class TasklistServiceTest {
     @Test
     void deleteListShouldRejectListsWithTasks() {
         var currentUser = user();
-        var list = TasklistEntity.builder()
-                .id(UUID.randomUUID())
-                .name("Trabalho")
-                .owner(currentUser)
-                .tasks(new ArrayList<>())
-                .build();
-        list.addTask(TaskItemEntity.builder().title("Revisar PR").notes("").completed(false).build());
+        var list = new TasklistEntity();
+        list.setId(UUID.randomUUID());
+        list.setName("Trabalho");
+        list.setOwner(currentUser);
+        list.setTasks(new ArrayList<>());
+        var task = new TaskItemEntity();
+        task.setTitle("Revisar PR");
+        task.setNotes("");
+        task.setCompleted(false);
+        list.addTask(task);
 
         when(tasklistRepository.findByIdAndOwnerId(list.getId(), currentUser.getId())).thenReturn(Optional.of(list));
 
@@ -79,13 +82,17 @@ class TasklistServiceTest {
     @Test
     void createTaskShouldRejectDuplicateTitlesInsideTheSameList() {
         var currentUser = user();
-        var list = TasklistEntity.builder()
-                .id(UUID.randomUUID())
-                .name("Trabalho")
-                .owner(currentUser)
-                .tasks(new ArrayList<>())
-                .build();
-        list.addTask(TaskItemEntity.builder().id(UUID.randomUUID()).title("Revisar PR").notes("Critico").completed(false).build());
+        var list = new TasklistEntity();
+        list.setId(UUID.randomUUID());
+        list.setName("Trabalho");
+        list.setOwner(currentUser);
+        list.setTasks(new ArrayList<>());
+        var task = new TaskItemEntity();
+        task.setId(UUID.randomUUID());
+        task.setTitle("Revisar PR");
+        task.setNotes("Critico");
+        task.setCompleted(false);
+        list.addTask(task);
 
         when(tasklistRepository.findByIdAndOwnerId(list.getId(), currentUser.getId())).thenReturn(Optional.of(list));
 
@@ -96,11 +103,11 @@ class TasklistServiceTest {
     }
 
     private UserEntity user() {
-        return UserEntity.builder()
-                .id(UUID.randomUUID())
-                .name("Angelo")
-                .email("angelo@tasklist.local")
-                .passwordHash("hashed-password")
-                .build();
+        var user = new UserEntity();
+        user.setId(UUID.randomUUID());
+        user.setName("Angelo");
+        user.setEmail("angelo@tasklist.local");
+        user.setPasswordHash("hashed-password");
+        return user;
     }
 }

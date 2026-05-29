@@ -7,7 +7,6 @@ import br.com.jtech.tasklist.controller.dto.TaskStatusRequest;
 import br.com.jtech.tasklist.domain.UserEntity;
 import br.com.jtech.tasklist.service.TaskService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,10 +24,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
-@RequiredArgsConstructor
 public class TaskController {
 
     private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

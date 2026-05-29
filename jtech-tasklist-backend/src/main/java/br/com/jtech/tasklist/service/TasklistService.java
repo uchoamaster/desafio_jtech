@@ -8,7 +8,6 @@ import br.com.jtech.tasklist.domain.TaskItemEntity;
 import br.com.jtech.tasklist.domain.TasklistEntity;
 import br.com.jtech.tasklist.domain.UserEntity;
 import br.com.jtech.tasklist.repository.TasklistRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,10 +16,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class TasklistService {
 
     private final TasklistRepository tasklistRepository;
+
+    public TasklistService(TasklistRepository tasklistRepository) {
+        this.tasklistRepository = tasklistRepository;
+    }
 
     public List<TasklistResponse> findAll(UserEntity currentUser) {
         return tasklistRepository.findAllByOwnerIdOrderByCreatedAtAsc(currentUser.getId())
@@ -36,10 +38,11 @@ public class TasklistService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A list with this name already exists.");
         }
 
-        var entity = tasklistRepository.save(TasklistEntity.builder()
-                .name(normalizedName)
-                .owner(currentUser)
-                .build());
+        var entity = new TasklistEntity();
+        entity.setName(normalizedName);
+        entity.setOwner(currentUser);
+
+        entity = tasklistRepository.save(entity);
 
         return TasklistResponse.of(entity);
     }
@@ -72,11 +75,12 @@ public class TasklistService {
 
         ensureTaskTitleAvailable(entity, normalizedTitle, null);
 
-        entity.addTask(TaskItemEntity.builder()
-                .title(normalizedTitle)
-            .notes(request.notes() == null ? "" : request.notes().trim())
-                .completed(false)
-                .build());
+        var task = new TaskItemEntity();
+        task.setTitle(normalizedTitle);
+        task.setNotes(request.notes() == null ? "" : request.notes().trim());
+        task.setCompleted(false);
+
+        entity.addTask(task);
 
         return TasklistResponse.of(tasklistRepository.save(entity));
     }

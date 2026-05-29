@@ -9,7 +9,6 @@ import br.com.jtech.tasklist.domain.TasklistEntity;
 import br.com.jtech.tasklist.domain.UserEntity;
 import br.com.jtech.tasklist.repository.TaskRepository;
 import br.com.jtech.tasklist.repository.TasklistRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,11 +17,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class TaskService {
 
     private final TaskRepository taskRepository;
     private final TasklistRepository tasklistRepository;
+
+    public TaskService(TaskRepository taskRepository, TasklistRepository tasklistRepository) {
+        this.taskRepository = taskRepository;
+        this.tasklistRepository = tasklistRepository;
+    }
 
     public TaskResponse createTask(UserEntity currentUser, TaskCreateRequest request) {
         var tasklist = getOwnedTasklist(currentUser, request.tasklistId());
@@ -32,13 +35,14 @@ public class TaskService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A task with this title already exists in the list.");
         }
 
-        var task = taskRepository.save(TaskItemEntity.builder()
-                .title(normalizedTitle)
-                .notes(request.notes() == null ? "" : request.notes().trim())
-                .completed(false)
-                .tasklist(tasklist)
-            .owner(currentUser)
-                .build());
+        var task = new TaskItemEntity();
+        task.setTitle(normalizedTitle);
+        task.setNotes(request.notes() == null ? "" : request.notes().trim());
+        task.setCompleted(false);
+        task.setTasklist(tasklist);
+        task.setOwner(currentUser);
+
+        task = taskRepository.save(task);
 
         return TaskResponse.of(task);
     }
