@@ -12,6 +12,22 @@ API Spring Boot responsavel por autenticacao JWT, refresh token e CRUD de listas
 - PostgreSQL para execucao local via Docker
 - JUnit 5 + Mockito + Spring Boot Test
 
+## Arquitetura
+
+O backend segue a arquitetura em camadas solicitada no desafio, com responsabilidades separadas entre entrada HTTP, regra de negocio, persistencia e modelo de dominio.
+
+```text
+br.com.jtech.tasklist
+├── config
+├── controller
+│   └── dto
+├── service
+├── repository
+└── domain
+```
+
+Fluxo principal: `controller -> service -> repository -> domain`.
+
 ## Funcionalidades entregues
 
 - Cadastro e login com JWT

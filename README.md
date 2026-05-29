@@ -84,6 +84,22 @@ A **JTech** busca desenvolvedores frontend experientes capazes de construir apli
 3. **Injeção de Dependência**: Utilização adequada do Spring Framework para IoC
 4. **Exception Handling**: Sistema robusto de tratamento centralizado de exceções
 
+#### Organização Atual do Backend
+
+O backend foi organizado seguindo a separação em camadas pedida no desafio:
+
+```text
+br.com.jtech.tasklist
+├── config
+├── controller
+│   └── dto
+├── service
+├── repository
+└── domain
+```
+
+Fluxo principal: `controller -> service -> repository -> domain`.
+
 #### Qualidade e Testabilidade
 
 1. **Testes Unitários**: Cobertura completa da camada de serviço com cenários de sucesso e falha

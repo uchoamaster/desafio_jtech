@@ -1,7 +1,7 @@
 package br.com.jtech.tasklist.config.infra.security;
 
-import br.com.jtech.tasklist.adapters.output.repositories.UserRepository;
-import br.com.jtech.tasklist.application.core.services.JwtService;
+import br.com.jtech.tasklist.repository.UserRepository;
+import br.com.jtech.tasklist.service.JwtService;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
