@@ -1,15 +1,3 @@
-/*
-*  @(#)Jsons.java
-*
-*  Copyright (c) J-Tech Solucoes em Informatica.
-*  All Rights Reserved.
-*
-*  This software is the confidential and proprietary information of J-Tech.
-*  ("Confidential Information"). You shall not disclose such Confidential
-*  Information and shall use it only in accordance with the terms of the
-*  license agreement you entered into with J-Tech.
-*
-*/
 package br.com.jtech.tasklist.config.infra.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -37,10 +25,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
-* class Jsons
-*
-* user angelo.vicente
-*/
+ * Shared JSON serialization and deserialization helpers.
+ */
 public final class Jsons {
 
     private static final Logger log = LoggerFactory.getLogger(Jsons.class);
